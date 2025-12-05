@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model StudyUser {
+  id        String   @id @default(cuid())
+  name      String   // 用户A或用户B
+  level     Int      @default(1) // 当前等级
+  money     Int      @default(0) // 总财富（分）
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  tasks     StudyTask[]
+  
+  @@unique([name])
+}
+
+model StudyTask {
+  id          String     @id @default(cuid())
+  title       String     // 任务名称
+  duration    Int        // 预估时间（分钟）
+  isCompleted Boolean    @default(false)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  completedAt DateTime?
+  
+  userId      String
+  user        StudyUser  @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

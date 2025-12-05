@@ -1,0 +1,18 @@
+{
+  "name": "sync-service",
+  "version": "1.0.0",
+  "description": "WebSocket service for real-time data synchronization",
+  "main": "index.ts",
+  "scripts": {
+    "dev": "tsx watch index.ts",
+    "build": "tsc",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "socket.io": "^4.7.2"
+  },
+  "devDependencies": {
+    "tsx": "^4.6.0",
+    "@types/node": "^20.0.0"
+  }
+}
